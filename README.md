@@ -1,16 +1,29 @@
 # Droneproject documentation
 
 ## Galileo debian install
-### Download the latest premade image from [here](http://sourceforge.net/projects/galileodebian()
-### Write the image to your sd card using dd or rewrite
+### Download the latest premade image from [here](http://sourceforge.net/projects/galileodebian)
+### Write the image to your sd card
 #### Linux
-On a Linux system, use the dd command to write the downloaded image to whichever device is you SD card.
+On a Linux system, use the dd command to write the downloaded image to whichever device is you SD card. Typing ```mount``` or ```ls -l /dev/disk/by-id``` will show you the devices and where they are mapped.
+```
+dd if=[path_to_image] of=[path_to_device]
+```
+For example:
+```
+dd if=/home/user/galieo-1.2.img of=/dev/sdb
+```
+
 #### Windows
-Donwload a tool called Rawrite32 and use it to wirte the image to your SD card.
+Donwload a tool called Rawrite32 and use it to write the image to your SD card.
 http://www.netbsd.org/~martin/rawrite32/download.html
 
 ### Connect to galileo
-Ota yhteys serial portin (COM jotain) kautta galileoon
+#### Linux
+Find out the COM port galileo uses by typing ```dmesg | grep tty```.
+Connect to the serial port using minicom or screen.
+
+#### Windows
+Open device manager to find out the COM port galileo uses and then connect to the COM port using putty or similar tool. There might be a long delay between establishing connection and seeing the login screen.
 
 ### Expand the partition to full sd card size
 
@@ -134,5 +147,6 @@ catkin_make
 | Small battery          | [Turnigy Nano-Tech 3000mAh](http://www.hobbyking.com/hobbyking/store/uh_viewItem.asp?idProduct=32623)                            |    1    |
 | Large battery          | [ZIPPY Flightmax 4000mAh](http://www.hobbyking.com/hobbyking/store/__35806__ZIPPY_Flightmax_4000mAh_3S1P_20C_EU_warehouse_.html) |    1    |
 | Microcontroller        | [Intel Galileo Gen 1](http://www.intel.com/content/www/us/en/do-it-yourself/galileo-maker-quark-board.html)                      |    1    |
+| Class 10 SD Card       | [Kingston 16GB](http://www.verkkokauppa.com/fi/product/1244/cnvhx/Kingston-16-GB-Class-10-microSDHC-muistikortti-SDHC-adapteri)  |    1    |
 
 We selected two batteries with different weights. The smaller battery weighted 231g while the bigger one weighted 306g.
