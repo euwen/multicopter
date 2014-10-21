@@ -1,6 +1,56 @@
-# Droneproject documentation
+# Multicopter
+This repository contains instructions on building an autonomously navigating quadcopter.
 
-## Galileo debian install
+## Hardware
+The autonomously navigating multicopter (drone) is built using the following parts. Some of the links point to the shops that we bought the items from. The software instructions are only specific to Intel Galileo, RPLidar and ArduPilot based flight controller. This means that the other parts can be swapped to different models without any effect to instructions.
+
+### Frame
+| Function               | Model                                                                                                                                     | Amount  |
+| ---------------------- |:-----------------------------------------------------------------------------------------------------------------------------------------:| -------:|
+| Carbon fiber (roving)  | [Generic](http://www.hp-textiles.com/shop/product_info.php?info=p881_100m-50k-carbon-fibre-roving--hp-ht-50k-100.html)                    |  1m^2   |
+| Epoxy laminating resin | [Generic](http://www.hp-textiles.com/shop/product_info.php?info=p1054_1400g-epoxy-industrial-laminating-resin-system---hp-e56l-1400.html) |  800ml  |
+| Glass filament fabric  | [Generic](http://www.hp-textiles.com/shop/product_info.php?info=p54_78g-m--glass-filament-fabric-finish-plain---hp-p78ef.html)            |  1m^2   |
+| Peel ply fabric        | [Generic](http://www.hp-textiles.com/shop/product_info.php?info=p150_105g-m--peel-ply-twill---hp-t105p100.html)                           |  1m^2   |
+
+### Flight hardware
+| Function               | Model                                                                                                                                                              | Amount  |
+| ---------------------- |:------------------------------------------------------------------------------------------------------------------------------------------------------------------:| -------:|
+| Flight Controller      | [HKPilot Mega 2.7](http://www.hobbyking.com/hobbyking/store/__56052__HKPilot_Mega_2_7_Flight_Controller_USB_GYRO_ACC_MAG_BARO.html)                                |    1    |
+| Motors                 | [Multistar 2212 - 920KV](http://www.hobbyking.com/hobbyking/store/__62796__Multistar_2212_920KV_Multi_Rotor_Motor_Set_w_CW_and_CCW_Threaded_Shafts_4pcs_box_.html) |    1    |
+| Motor Controller       | [Turnigy Multistar ESC 2-4S](http://www.hobbyking.com/hobbyking/store/__25364__Turnigy_Multistar_20_Amp_Multi_rotor_Brushless_ESC_2_4S.html)                       |    4    |
+| Propellers             | [DJI Phantom 2 Propeller Pair](http://www.quadcopters.co.uk/dji-phantom-2-propeller-pair-self-tightening-1211-p.asp)                                               |    4    |
+
+
+### Sensors & Navigation hardware
+| Function               | Model                                                                                                               | Amount  |
+| ---------------------- |:-------------------------------------------------------------------------------------------------------------------:| -------:|
+| 2D Laser range scanner | [RPLidar](http://www.seeedstudio.com/depot/RPLIDAR-360-degree-Laser-Scanner-Development-Kit-p-1823.html)            |    1    |
+| Infrared sensor        | [Sharp GP2Y0A02YK0F](http://www.seeedstudio.com/depot/Analog-Infrared-Distance-Measuring-Sensor20150cm-p-1493.html) |    4    |
+| Ultrasonic sensor      | [HC-SR04](http://www.hobbyking.com/hobbyking/store/__31136__ultrasonic_module_hc_sr04_arduino.html)                 |    5    |
+
+
+### Other
+| Function               | Model                                                                                                                            | Amount  |
+| ---------------------- |:--------------------------------------------------------------------------------------------------------------------------------:| -------:|
+| Small battery          | [Turnigy Nano-Tech 3000mAh](http://www.hobbyking.com/hobbyking/store/uh_viewItem.asp?idProduct=32623)                            |    1    |
+| Large battery          | [ZIPPY Flightmax 4000mAh](http://www.hobbyking.com/hobbyking/store/__35806__ZIPPY_Flightmax_4000mAh_3S1P_20C_EU_warehouse_.html) |    1    |
+| Microcontroller        | [Intel Galileo Gen 1](http://www.intel.com/content/www/us/en/do-it-yourself/galileo-maker-quark-board.html)                      |    1    |
+| Class 10 SDHC Card       | [Trancend 16GB](http://www.transcend-info.com/Products/No-414)  |    1    |
+
+We selected two batteries with different weights. The smaller battery weighted 231g while the bigger one weighted 306g.
+
+## Software
+Our software stack is built on
+
+[Debian Wheezy](http://sourceforge.net/p/galileodebian/wiki/Home/) (Specificly built for Galileo boards)
+
+[ROS Hydro](http://wiki.ros.org/hydro)
+
+ROS packages:
+[RPLidar](http://wiki.ros.org/rplidar) and
+[Hector Slam](http://wiki.ros.org/hector_slam)
+
+## Installation instructions
 ### Download the latest premade image from [here](http://sourceforge.net/projects/galileodebian)
 ### Write the image to your sd card
 #### Linux
@@ -14,13 +64,20 @@ dd if=/home/user/galieo-1.2.img of=/dev/sdb
 ```
 
 #### Windows
-Donwload a tool called Rawrite32 and use it to write the image to your SD card.
+Download a tool called Rawrite32 and use it to write the image to your SD card.
 http://www.netbsd.org/~martin/rawrite32/download.html
 
 ### Connect to galileo
 #### Linux
 Find out the COM port galileo uses by typing ```dmesg | grep tty```.
-Connect to the serial port using minicom or screen.
+Connect to the serial port using minicom, screen, cutecom or similar.
+
+[ ![Image](doc/img/cutecom.png "Cutecom screenshot") ](doc/img/cutecom.png "Cutecom")
+
+Note! In ubuntu you also need add your user to the dialout user group in order to use serial devices.  
+```
+usermod -a -G dialout user
+```
 
 #### Windows
 Open device manager to find out the COM port galileo uses and then connect to the COM port using putty or similar tool. There might be a long delay between establishing connection and seeing the login screen.
@@ -75,8 +132,11 @@ Instructions taken from [here.](http://sourceforge.net/p/galileodebian/wiki/How%
 
 ### Update galileo
 
-http://sourceforge.net/p/galileodebian/wiki/How%20to%20expand%20the%20root%20filesystem%20to%20use%20the%20entire%20SD%20card/
-Galileo on nyt valmis käytettäväksi ja pitäisi olla yhteydessä internettiin
+Fetch updated repositories and update installed packages.
+
+```
+apt-get update && apt-get upgrade
+```
 
 ### Install ROS Hydro
 
@@ -114,39 +174,3 @@ cd ..
 catkin_make
 ```
 ```GIT_SSL_NO_VERIFY=true``` is needed because the time service (stpd) is not working in galileo debian.
-
-## Parts
-### Frame
-| Function               | Model                                                                                                                                     | Amount  |
-| ---------------------- |:-----------------------------------------------------------------------------------------------------------------------------------------:| -------:|
-| Carbon fiber (roving)  | [Generic](http://www.hp-textiles.com/shop/product_info.php?info=p881_100m-50k-carbon-fibre-roving--hp-ht-50k-100.html)                    |  1m^2   |
-| Epoxy laminating resin | [Generic](http://www.hp-textiles.com/shop/product_info.php?info=p1054_1400g-epoxy-industrial-laminating-resin-system---hp-e56l-1400.html) |  800ml  |
-| Glass filament fabric  | [Generic](http://www.hp-textiles.com/shop/product_info.php?info=p54_78g-m--glass-filament-fabric-finish-plain---hp-p78ef.html)            |  1m^2   |
-| Peel ply fabric        | [Generic](http://www.hp-textiles.com/shop/product_info.php?info=p150_105g-m--peel-ply-twill---hp-t105p100.html)                           |  1m^2   |
-
-### Flight hardware
-| Function               | Model                                                                                                                                                              | Amount  |
-| ---------------------- |:------------------------------------------------------------------------------------------------------------------------------------------------------------------:| -------:|
-| Flight Controller      | [HKPilot Mega 2.7](http://www.hobbyking.com/hobbyking/store/__56052__HKPilot_Mega_2_7_Flight_Controller_USB_GYRO_ACC_MAG_BARO.html)                                |    1    |
-| Motors                 | [Multistar 2212 - 920KV](http://www.hobbyking.com/hobbyking/store/__62796__Multistar_2212_920KV_Multi_Rotor_Motor_Set_w_CW_and_CCW_Threaded_Shafts_4pcs_box_.html) |    1    |
-| Motor Controller       | [Turnigy Multistar ESC 2-4S](http://www.hobbyking.com/hobbyking/store/__25364__Turnigy_Multistar_20_Amp_Multi_rotor_Brushless_ESC_2_4S.html)                       |    4    |
-| Propellers             | [DJI Phantom 2 Propeller Pair](http://www.quadcopters.co.uk/dji-phantom-2-propeller-pair-self-tightening-1211-p.asp)                                               |    4    |
-
-
-### Sensors & Navigation hardware
-| Function               | Model                                                                                                               | Amount  |
-| ---------------------- |:-------------------------------------------------------------------------------------------------------------------:| -------:|
-| 2D Laser range scanner | [RPLidar](http://www.seeedstudio.com/depot/RPLIDAR-360-degree-Laser-Scanner-Development-Kit-p-1823.html)            |    1    |
-| Infrared sensor        | [Sharp GP2Y0A02YK0F](http://www.seeedstudio.com/depot/Analog-Infrared-Distance-Measuring-Sensor20150cm-p-1493.html) |    4    |
-| Ultrasonic sensor      | [HC-SR04](http://www.hobbyking.com/hobbyking/store/__31136__ultrasonic_module_hc_sr04_arduino.html)                 |    5    |
-
-
-### Other
-| Function               | Model                                                                                                                            | Amount  |
-| ---------------------- |:--------------------------------------------------------------------------------------------------------------------------------:| -------:|
-| Small battery          | [Turnigy Nano-Tech 3000mAh](http://www.hobbyking.com/hobbyking/store/uh_viewItem.asp?idProduct=32623)                            |    1    |
-| Large battery          | [ZIPPY Flightmax 4000mAh](http://www.hobbyking.com/hobbyking/store/__35806__ZIPPY_Flightmax_4000mAh_3S1P_20C_EU_warehouse_.html) |    1    |
-| Microcontroller        | [Intel Galileo Gen 1](http://www.intel.com/content/www/us/en/do-it-yourself/galileo-maker-quark-board.html)                      |    1    |
-| Class 10 SD Card       | [Kingston 16GB](http://www.verkkokauppa.com/fi/product/1244/cnvhx/Kingston-16-GB-Class-10-microSDHC-muistikortti-SDHC-adapteri)  |    1    |
-
-We selected two batteries with different weights. The smaller battery weighted 231g while the bigger one weighted 306g.
