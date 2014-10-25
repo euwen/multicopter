@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>multicopter_map</name>
+  <version>1.0.0</version>
+  <description>Multicopter SLAM mapping using rplidar</description>
+
+  <license>MIT</license>
+
+  <maintainer email="fake.mail@gmail.com">Fake</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>hector_mapping</run_depend>
+  <run_depend>hector_map_server</run_depend>
+  <run_depend>hector_trajectory_server</run_depend>
+  <run_depend>hector_geotiff</run_depend>
+  <run_depend>hector_geotiff_plugins</run_depend>
+  <run_depend>rplidar_ros</run_depend>
+</package>
