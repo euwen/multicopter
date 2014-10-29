@@ -179,11 +179,11 @@ catkin_make
 
 Toolchain for software development is mandatory, if new components should be cross-compiled for the Intel Galileo + ROS setup. This section describes the steps requires to build your toolchain. Please note, that currently this works ONLY for 32 bit host systems. It is also greatly preferred that this toolchain and ROS are installed for the virtual machine, so setting up toolchain won't break your host computer. In this example, a VirtualBox image with Ubuntu 12.04 and ROS Hydro is used (running under Arch Linux host).
 
-# Setup up your virtual machine (optional)
+### Setup up your virtual machine (optional)
 
 Install the virtual machine and 32 bit Linux system for it. The recommended setup is 32 bit Ubuntu guest with ROS Hydro. See [VirtualBox installation manual](http://www.virtualbox.org/manual/ch01.html) for setting up Ubuntu environment and [ROS Hydro installation for Ubuntu](http://wiki.ros.org/hydro/Installation/Ubuntu) to proceed. If you are using your own host OS for these setups, please be careful. 
 
-# Get the SDK
+### Get the SDK
 
 Install toolchain for your operating system (in this example, the host machine Linux is used) from Intel site. The file is named "Toolchain_GPLCompliance.src.1.0.3.tar.bz2" and can be downloaded [here](http://downloadcenter.intel.com/confirm.aspx?httpDown=http://downloadmirror.intel.com/24272/eng/Toolchain_GPLCompliance.src.1.0.3.tar.bz2&Lang=eng&Dwnldid=24272).
 
@@ -195,7 +195,7 @@ And install the toolchain with ```sh toolchain-20140724-linux32.sh```. Note that
 
 The actual toolchain is now installed for your installation folder. However, it lacks the multiple dependencies for cross-compiling, so all of them must be compiled manually for the toolchain.
 
-# Applying the toolchain
+### Applying the toolchain
 
 Apply the toolchain environment, run in your current terminal window
 ```
@@ -204,7 +204,7 @@ source /path/to/your/toolchain/environment-setup-core2-32-poky-linux
 
 This step must be performed every time you open a new terminal. If you want to load these options automatically for every opened terminal, you can edit your ```~/.bashrc``` (if bash is used) and add the line above to the end of the file. Please note, that this step also disables your operating systems default compiler variables.
 
-# TODO
+### TODO
 
 More information coming for dependencies...
 
