@@ -185,11 +185,11 @@ Install the virtual machine and 32 bit Linux system for it. The recommended setu
 
 ### Get the SDK
 
-Install toolchain for your operating system (in this example, the host machine Linux is used) from Intel site. The file is named "Toolchain_GPLCompliance.src.1.0.3.tar.bz2" and can be downloaded [here](http://downloadcenter.intel.com/confirm.aspx?httpDown=http://downloadmirror.intel.com/24272/eng/Toolchain_GPLCompliance.src.1.0.3.tar.bz2&Lang=eng&Dwnldid=24272).
+Install toolchain for your operating system (in this example, the host machine Linux is used) from Intel site. The file is named "Toolchain_GPLCompliance.src.VERSIONUMBER.tar.bz2" and can be downloaded [here](https://communities.intel.com/docs/DOC-22226). (1.0.3 was used)
 
 Extract the downloaded package
 ```
-tar xvvf Toolchain_GPLCompliance.src.1.0.3.tar.bz2
+tar xvvf Toolchain_GPLCompliance.src.VERSIONNUMBER.tar.bz2
 ```
 And install the toolchain with ```sh toolchain-20140724-linux32.sh```. Note that default installation path is under ```/opt/poky-edison/1.6``` so root priviledges are required. You can also install it whereever you want.
 
