@@ -229,6 +229,21 @@ source /path/to/your/toolchain/environment-setup-core2-32-poky-linux
 
 This step must be performed every time you open a new terminal. If you want to load these options automatically for every opened terminal, you can edit your ```~/.bashrc``` (if bash is used) and add the line above to the end of the file. Please note, that this step also disables your operating systems default compiler variables.
 
-### TODO
+### Install dependencies
 
-More information coming for dependencies...
+TODO: More information coming for dependencies...
+
+### Transfer and run your cross-compiled program on Intel Galileo
+
+When you have succesfully built your program with your development PC, you can transfer it to Intel Galileo catkin workspace. There are various ways to do this:
+
+1) Transfer the file through the serial port (slow)
+2) Copy your files to SD-card, where your Debian is installed
+3) If connected to internet, copy the file throught FTP/HTTP/etc.
+4) Your own choice
+
+You can choose whatever method you want, and these methods are not explained here.
+
+Your have to copy your binaries and sources from the development catkin workspace, which are ```catkin_ws/src``` and ```catkin_ws/build```. Folder ```catkin_ws/devel``` shall *NOT* be touched! From ```src``` folder, your compiled program sources (eg. rplidar_ros) can be copied, but in the ```build``` folder, you can append the new files to the existing folder.
+
+When you have transferred the files to your Intel Galileo catkin workspace, you can run these normally. You have succesfully cross compiled and run new executeables.
