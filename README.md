@@ -51,6 +51,31 @@ ROS packages:
 [Hector Slam](http://wiki.ros.org/hector_slam)
 
 ## Installation instructions
+### Update Firmware
+Download Arduino IDE for Galileo from [here](https://communities.intel.com/docs/DOC-22226)  
+
+Open Arduino IDE and make sure that the board and serial port settings are correct.
+
+[ ![Image](doc/img/arduino_board.png "Select board") ](doc/img/arduino_board.png "Select board")
+
+[ ![Image](doc/img/arduino_port.png "Select port") ](doc/img/arduino_port.png "Select port")
+
+Select ```Galileo Firmware Update``` from the ```Help``` menu.  
+[ ![Image](doc/img/arduino_ide.png "Update firmware") ](doc/img/arduino_ide.png "Update firmware")
+
+**Windows specific instructions**  
+ The port settings can be changed from the device manager.
+[ ![Image](doc/img/device_manager.png "Device manager") ](doc/img/device_manager.png "Device manager")
+
+If the Arduino IDE splash screen flashes, but nothing happens after that, it might be a problem with the locale.  
+You can get around this by creating a shortcut and appending these to the parameters:
+```
+[arduino directory]\java\bin\javaw -Duser.language=en -Duser.region=US -Xms128m -Xmx128m -classpath "lib;lib\pde.jar;lib\core.jar;lib\jna.jar;lib\ecj.jar;lib\RXTXcomm.jar;lib\commons-exec-1.1.jar" processing.app.Base
+```
+[ ![Image](doc/img/arduino_fix.png "Arduino fix") ](doc/img/arduino_fix.png "Arduino fix")
+
+Source: https://communities.intel.com/thread/45615
+
 ### Download the latest premade image from [here](http://sourceforge.net/projects/galileodebian)
 ### Write the image to your sd card
 #### Linux
@@ -174,3 +199,36 @@ cd ..
 catkin_make
 ```
 ```GIT_SSL_NO_VERIFY=true``` is needed because the time service (stpd) is not working in galileo debian.
+
+## Toolchain for software development
+
+Toolchain for software development is mandatory, if new components should be cross-compiled for the Intel Galileo + ROS setup. This section describes the steps requires to build your toolchain. Please note, that currently this works ONLY for 32 bit host systems. It is also greatly preferred that this toolchain and ROS are installed for the virtual machine, so setting up toolchain won't break your host computer. In this example, a VirtualBox image with Ubuntu 12.04 and ROS Hydro is used (running under Arch Linux host).
+
+### Setup up your virtual machine (optional)
+
+Install the virtual machine and 32 bit Linux system for it. The recommended setup is 32 bit Ubuntu guest with ROS Hydro. See [VirtualBox installation manual](http://www.virtualbox.org/manual/ch01.html) for setting up Ubuntu environment and [ROS Hydro installation for Ubuntu](http://wiki.ros.org/hydro/Installation/Ubuntu) to proceed. If you are using your own host OS for these setups, please be careful.
+
+### Get the SDK
+
+Install toolchain for your operating system (in this example, the host machine Linux is used) from Intel site. The file is named "Toolchain_GPLCompliance.src.VERSIONUMBER.tar.bz2" and can be downloaded [here](https://communities.intel.com/docs/DOC-22226). (1.0.3 was used)
+
+Extract the downloaded package
+```
+tar xvvf Toolchain_GPLCompliance.src.VERSIONNUMBER.tar.bz2
+```
+And install the toolchain with ```sh toolchain-20140724-linux32.sh```. Note that default installation path is under ```/opt/poky-edison/1.6``` so root priviledges are required. You can also install it whereever you want.
+
+The actual toolchain is now installed for your installation folder. However, it lacks the multiple dependencies for cross-compiling, so all of them must be compiled manually for the toolchain.
+
+### Applying the toolchain
+
+Apply the toolchain environment, run in your current terminal window
+```
+source /path/to/your/toolchain/environment-setup-core2-32-poky-linux
+```
+
+This step must be performed every time you open a new terminal. If you want to load these options automatically for every opened terminal, you can edit your ```~/.bashrc``` (if bash is used) and add the line above to the end of the file. Please note, that this step also disables your operating systems default compiler variables.
+
+### TODO
+
+More information coming for dependencies...
