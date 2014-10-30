@@ -51,6 +51,31 @@ ROS packages:
 [Hector Slam](http://wiki.ros.org/hector_slam)
 
 ## Installation instructions
+### Update Firmware
+Download Arduino IDE for Galileo from [here](https://communities.intel.com/docs/DOC-22226)  
+
+Open Arduino IDE and make sure that the board and serial port settings are correct.
+
+[ ![Image](doc/img/arduino_board.png "Select board") ](doc/img/arduino_board.png "Select board")
+
+[ ![Image](doc/img/arduino_port.png "Select port") ](doc/img/arduino_port.png "Select port")
+
+Select ```Galileo Firmware Update``` from the ```Help``` menu.  
+[ ![Image](doc/img/arduino_ide.png "Update firmware") ](doc/img/arduino_ide.png "Update firmware")
+
+**Windows specific instructions**  
+ The port settings can be changed from the device manager.
+[ ![Image](doc/img/device_manager.png "Device manager") ](doc/img/device_manager.png "Device manager")
+
+If the Arduino IDE splash screen flashes, but nothing happens after that, it might be a problem with the locale.  
+You can get around this by creating a shortcut and appending these to the parameters:
+```
+[arduino directory]\java\bin\javaw -Duser.language=en -Duser.region=US -Xms128m -Xmx128m -classpath "lib;lib\pde.jar;lib\core.jar;lib\jna.jar;lib\ecj.jar;lib\RXTXcomm.jar;lib\commons-exec-1.1.jar" processing.app.Base
+```
+[ ![Image](doc/img/arduino_fix.png "Arduino fix") ](doc/img/arduino_fix.png "Arduino fix")
+
+Source: https://communities.intel.com/thread/45615
+
 ### Download the latest premade image from [here](http://sourceforge.net/projects/galileodebian)
 ### Write the image to your sd card
 #### Linux
@@ -181,7 +206,7 @@ Toolchain for software development is mandatory, if new components should be cro
 
 ### Setup up your virtual machine (optional)
 
-Install the virtual machine and 32 bit Linux system for it. The recommended setup is 32 bit Ubuntu guest with ROS Hydro. See [VirtualBox installation manual](http://www.virtualbox.org/manual/ch01.html) for setting up Ubuntu environment and [ROS Hydro installation for Ubuntu](http://wiki.ros.org/hydro/Installation/Ubuntu) to proceed. If you are using your own host OS for these setups, please be careful. 
+Install the virtual machine and 32 bit Linux system for it. The recommended setup is 32 bit Ubuntu guest with ROS Hydro. See [VirtualBox installation manual](http://www.virtualbox.org/manual/ch01.html) for setting up Ubuntu environment and [ROS Hydro installation for Ubuntu](http://wiki.ros.org/hydro/Installation/Ubuntu) to proceed. If you are using your own host OS for these setups, please be careful.
 
 ### Get the SDK
 
@@ -207,4 +232,3 @@ This step must be performed every time you open a new terminal. If you want to l
 ### TODO
 
 More information coming for dependencies...
-
