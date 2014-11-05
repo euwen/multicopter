@@ -4,6 +4,7 @@
 <launch>
   <include file="$(find multicopter_map)/launch/rplidar.launch" />
   <include file="$(find multicopter_map)/launch/hector_slam.launch"/>
+  <include file="$(find multicopter_map)/launch/costmap.launch"/>
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multicopter_map)/rviz/multicopter.rviz" />
 </launch>
