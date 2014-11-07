@@ -217,12 +217,21 @@ git clone https://github.com/sanmarh1/multicopter.git
 cd catkin_ws/src
 ln -s ~/multicopter/multicopter_map multicopter_map
 ```
+Create a symbolic link between the multicopter pakcage launch file and catkin workspace.  
+```
+cd ..
+ln -s ~/multicopter/launch launchAll
+```
 Build cloned packages using ```catkin_make```.
 ```
 cd ..
 catkin_make
 ```
-
+Make the launch file executable.
+```
+chmod a+x launchAll
+```
+Now the project can be launched typing ```./launchAll```
 
 ## Toolchain for software development
 
