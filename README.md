@@ -47,8 +47,9 @@ Our software stack is built on
 [ROS Hydro](http://wiki.ros.org/hydro)
 
 ROS packages:
-[RPLidar](http://wiki.ros.org/rplidar) and
-[Hector Slam](http://wiki.ros.org/hector_slam)
+[RPLidar](http://wiki.ros.org/rplidar),
+[Hector Slam](http://wiki.ros.org/hector_slam),
+[Hector Navigation](http://wiki.ros.org/hector_navigation)
 
 ## Installation instructions
 ### Update Firmware
@@ -235,15 +236,15 @@ TODO: More information coming for dependencies...
 
 ### Transfer and run your cross-compiled program on Intel Galileo
 
-When you have succesfully built your program with your development PC, you can transfer it to Intel Galileo catkin workspace. There are various ways to do this:
+When you have successfully built your program with your development PC, you can transfer it to Intel Galileo catkin workspace. There are various ways to do this:
 
 1) Transfer the file through the serial port (slow)
 2) Copy your files to SD-card, where your Debian is installed
-3) If connected to internet, copy the file throught FTP/HTTP/etc.
+3) If connected to Internet, copy the file through FTP/HTTP/etc.
 4) Your own choice
 
 You can choose whatever method you want, and these methods are not explained here.
 
 Your have to copy your binaries and sources from the development catkin workspace, which are ```catkin_ws/src``` and ```catkin_ws/build```. Folder ```catkin_ws/devel``` shall *NOT* be touched! From ```src``` folder, your compiled program sources (eg. rplidar_ros) can be copied, but in the ```build``` folder, you can append the new files to the existing folder.
 
-When you have transferred the files to your Intel Galileo catkin workspace, you can run these normally. You have succesfully cross compiled and run new executeables.
+When you have transferred the files to your Intel Galileo catkin workspace, you can run these normally. You have successfully cross compiled and run new executables.
