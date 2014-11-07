@@ -43,7 +43,7 @@
     <param name="max_height" value="1.0" />
     <param name="elevation_map_frame_id" value="/elevation_map_local" />
     <param name="sys_msg_topic" value="/syscommand" />
-</node>
+  </node>
 
 <node pkg="hector_exploration_node" type="exploration_planner_node" name="hector_exploration_node" output="screen">
     <rosparam file="$(find multicopter_map)/config/costmap.yaml" command="load" />
