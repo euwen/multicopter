@@ -193,13 +193,36 @@ cd catkin_ws/src/
 catkin_init_workspace
 ```
 
-### Clone the rplidar node to your workspace
+### Clone required packages to your workspace
+RPLidar node handles the publishing of the laserscan data. Clone it using the following command.
 ```
-GIT_SSL_NO_VERIFY=true git clone https://github.com/robopeak/rplidar_ros.git
+export GIT_SSL_NO_VERIFY=true
+git clone https://github.com/robopeak/rplidar_ros.git
+```
+```GIT_SSL_NO_VERIFY=true``` is needed because the time service (stpd) is not working in galileo debian.
+
+Clone hector_slam package that contains hector_mapping and related packages.
+```
+git clone https://github.com/tu-darmstadt-ros-pkg/hector_slam.git
+```
+Clone a custom hector_navigation package that is forked from the original one.
+```
+git clone https://github.com/Kalifi/hector_navigation.git
+```
+
+Clone this project to e.g. to your home directory and create a symbolic link between the multicopter_map folder and your catkin workspace.
+```
+cd ~/
+git clone https://github.com/sanmarh1/multicopter.git
+cd catkin_ws/src
+ln -s ~/multicopter/multicopter_map multicopter_map
+```
+Build cloned packages using ```catkin_make```.
+```
 cd ..
 catkin_make
 ```
-```GIT_SSL_NO_VERIFY=true``` is needed because the time service (stpd) is not working in galileo debian.
+
 
 ## Toolchain for software development
 
