@@ -214,13 +214,24 @@ Clone this project to e.g. to your home directory and create a symbolic link bet
 ```
 cd ~/
 git clone https://github.com/sanmarh1/multicopter.git
-cd catkin_ws/src
-ln -s ~/multicopter/multicopter_map multicopter_map
+ln -s ~/multicopter/multicopter_map catkin_ws/src/multicopter_map
 ```
 Create a symbolic link between the multicopter pakcage launch file and catkin workspace.  
 ```
 cd ..
 ln -s ~/multicopter/launch launchAll
+```
+Modify the files package.xml and CMakeLists.txt in ~/catkin_ws/src/hector_slam/hector_map_tools by adding the following.
+
+**package.xml:**
+```
+<build_depend>cmake_modules</build_depend>
+<run_depend>cmake_modules</run_depend>
+```
+**CMakeLists.txt:**
+```
+find_package(cmake_modules REQUIRED)  
+find_package(Eigen REQUIRED)
 ```
 Build cloned packages using ```catkin_make```.
 ```
