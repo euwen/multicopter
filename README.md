@@ -35,7 +35,8 @@ The autonomously navigating multicopter (drone) is built using the following par
 | Small battery          | [Turnigy Nano-Tech 3000mAh](http://www.hobbyking.com/hobbyking/store/uh_viewItem.asp?idProduct=32623)                            |    1    |
 | Large battery          | [ZIPPY Flightmax 4000mAh](http://www.hobbyking.com/hobbyking/store/__35806__ZIPPY_Flightmax_4000mAh_3S1P_20C_EU_warehouse_.html) |    1    |
 | Microcontroller        | [Intel Galileo Gen 1](http://www.intel.com/content/www/us/en/do-it-yourself/galileo-maker-quark-board.html)                      |    1    |
-| Class 10 SDHC Card       | [Trancend 16GB](http://www.transcend-info.com/Products/No-414)  |    1    |
+| Class 10 SDHC Card     | [Trancend 16GB](http://www.transcend-info.com/Products/No-414)                                                                   |    1    |
+| Wlan Adapter (USB)     | [Asus WL-167g v3](http://www.asus.com/Networking/WL167G_V3)                                                                      |    1    |
 
 We selected two batteries with different weights. The smaller battery weighted 231g while the bigger one weighted 306g.
 
@@ -243,6 +244,11 @@ Make the launch file executable.
 chmod a+x launchAll
 ```
 Now the project can be launched typing ```./launchAll```
+
+## Setting up remote rviz connection
+
+### Configure WLAN adapter
+The Asus WL-167g v3 WLAN adapter uses a Realtek chipset (RTL8188SU). To use it, we have to install realtek drivers.
 
 ## Toolchain for software development
 

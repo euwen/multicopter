@@ -83,7 +83,7 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_frame:
+        base_link:
           Value: true
         laser:
           Value: true
@@ -98,7 +98,7 @@ Visualization Manager:
       Show Names: true
       Tree:
         map:
-          base_frame:
+          base_link:
             laser:
               {}
           scanmatcher_frame:
