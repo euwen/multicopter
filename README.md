@@ -297,3 +297,11 @@ You can choose whatever method you want, and these methods are not explained her
 Your have to copy your binaries and sources from the development catkin workspace, which are ```catkin_ws/src``` and ```catkin_ws/build```. Folder ```catkin_ws/devel``` shall *NOT* be touched! From ```src``` folder, your compiled program sources (eg. rplidar_ros) can be copied, but in the ```build``` folder, you can append the new files to the existing folder.
 
 When you have transferred the files to your Intel Galileo catkin workspace, you can run these normally. You have successfully cross compiled and run new executables.
+
+### Running multicopter_map as service
+
+Copy roslaunch file from multicopter_map to your init.d. Make sure you update ROS_PACKAGE_PATH, HOME, ROS_HOME, ROS_IP and the ip in grep command (line 27). You can choose whether to run multicopter_package in screen or not by commenting either line 40 or 41.
+
+After moving the script to init.d and changing variables, package should start when device gets it's ip address. You can also start the package by typing "service roslaunch start" in terminal.
+
+
