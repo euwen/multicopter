@@ -211,11 +211,11 @@ Clone a custom hector_navigation package that is forked from the original one.
 git clone https://github.com/Kalifi/hector_navigation.git
 ```
 
-Clone this project to e.g. to your home directory and create a symbolic link between the multicopter_map folder and your catkin workspace.
+Clone this project to e.g. to your home directory and create a symbolic link between the client_node folder and your catkin workspace.
 ```
 cd ~/
 git clone https://github.com/sanmarh1/multicopter.git
-ln -s ~/multicopter/multicopter_map catkin_ws/src/multicopter_map
+ln -s ~/multicopter/client_node catkin_ws/src/client_node
 ```
 Create a symbolic link between the multicopter pakcage launch file and catkin workspace.  
 ```
