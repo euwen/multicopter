@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package>
+  <name>server_node</name>
+  <version>1.0.0</version>
+  <description>Multicopter client node for sending the scan data.</description>
+
+  <license>MIT</license>
+
+  <maintainer email="fake.mail@gmail.com">Fake</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>rplidar_ros</run_depend>
+</package>

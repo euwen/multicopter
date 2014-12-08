@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<!--
+  Start rplidar, hector_slam and costmap packages
+-->
+
+<launch>
+  <include file="$(find client_node)/launch/rplidar.launch" />
+  <include file="$(find client_node)/launch/hector_slam.launch"/>
+  <include file="$(find client_node)/launch/costmap.launch"/>
+</launch>

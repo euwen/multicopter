@@ -1,0 +1,6 @@
+<!--
+  Start rviz to visualize map and give move commands.
+ -->
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find client_node)/rviz/client.rviz" />
+</launch>

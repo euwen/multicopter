@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(multicopter_map)
+project(server_node)
 
 find_package(catkin REQUIRED)
 
