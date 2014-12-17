@@ -52,6 +52,38 @@ ROS packages:
 [Hector Slam](http://wiki.ros.org/hector_slam) (still not working under actual Raspbian)
 [Hector Navigation](http://wiki.ros.org/hector_navigation) (still not working under actual Raspbian)
 
+## Raspbian installation
+
+### Download the latest premade image from [here](http://downloads.raspberrypi.org/raspbian_latest) and extract it.
+### Write the image to your sd card
+#### Linux
+On a Linux system, use the dd command to write the downloaded image to whichever device is you SD card. Typing ```mount``` or ```ls -l /dev/disk/by-id``` will show you the devices and where they are mapped.
+```
+dd if=[path_to_image] of=[path_to_device]
+```
+For example:
+```
+dd if=/home/user/raspbian.img of=/dev/sdc
+```
+
+#### Windows
+Download a tool called Rawrite32 and use it to write the image to your SD card.
+http://www.netbsd.org/~martin/rawrite32/download.html
+
+When you have succesfully written the data to the SD-card, then connect it to your Raspberry Pi and boot it.
+
+## Connectin to Pi
+
+It is encouraged to connect to your Raspberry Pi using internet connection (for example via ethernet cable). Connect your Pi to your local network and scan the local area for the IP address with the following command:
+```
+nmap -sP 192.168.1.1/24
+```
+Note that your local IP address might be different, so test also 192.168.2.1 etc. The best guess is achieved by checking your development PCs own local IP address.
+
+Then connect to your Pi with ssh connection (Putty on Windows):
+```
+ssh pi@youripaddress
+```
 
 
 # Software (Intel Galileo)
