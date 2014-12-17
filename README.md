@@ -149,7 +149,7 @@ sudo apt-get install [package-name]
 Our software might require some tweaking with dependencies, which are not provided by Raspbian stable branch. So we should install them harder way.
 
 
-### sbcl
+####sbcl
 rosdep might provide an error regarded to the sbcl which is not provided to Pi, so we have to remove roslisp.
 ```
 cd src
@@ -186,9 +186,9 @@ wget http://archive.raspbian.org/raspbian/pool/main/l/lz4/liblz4-dev_0.0~r122-2_
 sudo dpkg -i liblz4-1_0.0~r122-2_armhf.deb liblz4-dev_0.0~r122-2_armhf.deb
 ```
 
-###rosbag_migration_rule
+####rosbag_migration_rule
 ```
-cd ~/ros_catkin_ws/src
+cd ~/catkin_ws/src
 git clone https://github.com/ros/rosbag_migration_rule.git
 cd ..
 rosdep install  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
@@ -208,6 +208,107 @@ When this step is over, you should add your setup.bash to your .bashrc to improv
 echo "source ~/catkin_ws/install_isolated/setup.bash" >> /home/pi/.bashrc
 source ../.bashrc
 ```
+
+## Additional packages
+
+We want to install some own stuff, because "normal" ROS installation won't help us a lot. To install a new package from git repository, you should do the following:
+
+```
+cd ~/catkin_ws/src
+git clone https://address.to.the.git
+cd ..
+rosdep check  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
+```
+
+or "rosdep install" if you sure that your dependencies are ok. Install the dependencies as in previous steps and after that. Some of the depencies might be also ROS packages, so check their Git repository from ROS Wiki (just google and you can find it) and clone the right branch, in this case is hydro: ```git clone -b brach_name https://address.to.the.git```
+
+Then buiĺd the whole thing.
+
+```
+catkin_make_isolated --install
+```
+
+If you want to build rplidar_ros package, then use the following git repository:
+
+```
+git clone https://github.com/robopeak/rplidar_ros.git
+```
+
+Install this first. This should be sufficient at this state.
+
+## Other packages
+
+In this project, also the hector navigation is represented and other various stuff. You can install them from these git repositories:
+
+
+```
+git clone https://github.com/tu-darmstadt-ros-pkg/hector_slam.git
+git clone https://github.com/Kalifi/hector_navigation.git
+git clone https://github.com/sanmarh1/multicopter.git
+```
+
+##### IMPORTANT NOTE (December 18, 2014)
+However, installing all the dependencies to these is a HUGE work, because they require much more stuff than raspberry pi is capable to run. Therefore, it is not adviced to install these packages at the current state. When the packages are modified enough, then these steps are mandatory. Further information shall be edited here.
+
+## WLAN
+
+To get WLAN working, it must be configured and drivers must be installed. Plug-in your wireless WLAN adapter to the USB port.
+
+First, let's configure the wlan interface.
+
+```
+sudo nano /etc/network/interfaces
+```
+
+Change the first line (if not already set) to
+
+```
+auto wlan0
+```
+
+Then add to the bottom of the file the wlan0 information, which is following:
+
+```
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
+```
+
+Ctrl+X to exit, then Y to save changes.
+
+Open your wpa_supplicant.conf the same way
+
+```
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+
+Add the following lines to the file:
+
+```
+network={
+ssid="YOUR_NETWORK_NAME"
+psk="YOUR_NETWORK_PASSWORD"
+proto=RSN
+key_mgmt=WPA-PSK
+pairwise=CCMP
+auth_alg=OPEN
+}
+```
+
+Where you edit your own WLAN configuration.
+
+After this, you can reboot and check if your Rasperry Pi connects to wlan automatically. You can check this with ```ifconfig``` command, and if wlan0 is up and got an IP.
+
+If this is not working, the reasion is probably drivers. Usually drivers can be fixed by upgrading your Pi firmware and drivers. So connect the WLAN adapter to Pi, and upgrade the whole system as
+
+```
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo rpi-update
+```
+
+After the reboot, your wlan should work it is not some kind of rare device. If not, try to find which drivers your device contains and install them manually (compiling, ready to use ARM binaries etc.).
 
 # Software (Intel Galileo)
 #### Important: OUTDATED! Follow with caution!
