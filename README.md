@@ -48,8 +48,8 @@ Out software stack is built on
 [ROS Hydro](http://wiki.ros.org/hydro)
 
 ROS packages:
-[RPLidar](http://wiki.ros.org/rplidar)
-[Hector Slam](http://wiki.ros.org/hector_slam) (still not working under actual Raspbian)
+[RPLidar](http://wiki.ros.org/rplidar),
+[Hector Slam](http://wiki.ros.org/hector_slam) (still not working under actual Raspbian),
 [Hector Navigation](http://wiki.ros.org/hector_navigation) (still not working under actual Raspbian)
 
 ## Raspbian installation
@@ -94,6 +94,65 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 sudo rpi-update
 ```
+
+## Install ROS Hydro
+
+When you have configured your Raspberry Pi, it is time for the actual ROS installation. Be aware, that this installation requires hours to compile, so take your time.
+
+First, setup the repositories.
+
+```
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu raring main" > /etc/apt/sources.list.d/ros-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+Bootstrap dependencies
+```
+sudo apt-get install python-setuptools
+sudo apt-get install python-stdeb
+sudo easy_install pip
+sudo pip install -U rosdep rosinstall_generator wstool rosinstall
+```
+
+Ǹext, the source downloading and compiling, which requires some time.
+
+```
+mkdir ~/catkin_ws
+cd ~/catkin_ws
+rosinstall_generator ros_comm --rosdistro hydro --deps --wet-only > hydro-ros_comm-wet.rosinstall
+wstool init -j8 src hydro-ros_comm-wet.rosinstall
+sudo rosdep init
+rosdep update
+rosdep install  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
+```
+
+However, this step might provide an error regarded to the sbcl which is not provided to Pi, so we have to remove roslisp.
+
+```
+cd src
+wstool rm roslisp
+rm -rf roslisp
+cd ..
+rosdep install  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
+```
+
+If everything went as expected, it is time to install your fresh ROS.
+
+```
+catkin_make_isolated --install
+```
+
+This is the point where you can take a nap.
+
+When this step is over, you should add your setup.bash to your .bashrc to improve useability.
+
+```
+echo "source ~/catkin_ws/install_isolated/setup.bash" >> /home/pi/.bashrc
+source ../.bashrc
+```
+
 
 # Software (Intel Galileo)
 #### Important: OUTDATED! Follow with caution!
