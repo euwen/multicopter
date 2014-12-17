@@ -128,6 +128,12 @@ rosdep update
 rosdep install  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
 ```
 
+If ```wstool init``` fails or is interrupted, you can continue from previous state with
+
+```
+wstool update -j 4 -t src
+```
+
 IMPORTANT: When runnind rosdep install-call, this automatically provides all the dependencies from debian repositories. However, as seen above, we installed some of the dependencies with pip, not with apt. rosdep cannot detect these even though they are installed, so it can provide an error. Thse packages are most probably titles with ```python-*``` name, To avoid this and manually check which packages must be installed, run instead
 
 ```
@@ -140,12 +146,50 @@ and then install manually all missing packages (non python-*) with apt
 sudo apt-get install [package-name]
 ```
 
-When installing dependencies, rosdep might provide an error regarded to the sbcl which is not provided to Pi, so we have to remove roslisp.
+Our software might require some tweaking with dependencies, which are not provided by Raspbian stable branch. So we should install them harder way.
 
+
+### sbcl
+rosdep might provide an error regarded to the sbcl which is not provided to Pi, so we have to remove roslisp.
 ```
 cd src
 wstool rm roslisp
 rm -rf roslisp
+cd ..
+rosdep install  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
+```
+
+For the rest, make an external folder, which contains all these "extra" packages.
+
+```
+mkdir ~/catkin_ws/external_src
+sudo apt-get install checkinstall cmake
+```
+
+####libconsole-bridge-dev
+```
+cd ~/catkin_ws/external_src
+sudo apt-get install libboost-system-dev libboost-thread-dev
+git clone https://github.com/ros/console_bridge.git
+cd console_bridge
+cmake .
+sudo checkinstall make install
+```
+
+Remember to change the file name to ```libconsole-bridge-dev``` when asked to ensure package manager functionality.
+
+####liblz4-dev
+```
+cd ~/catkin_ws/external_src
+wget http://archive.raspbian.org/raspbian/pool/main/l/lz4/liblz4-1_0.0~r122-2_armhf.deb
+wget http://archive.raspbian.org/raspbian/pool/main/l/lz4/liblz4-dev_0.0~r122-2_armhf.deb
+sudo dpkg -i liblz4-1_0.0~r122-2_armhf.deb liblz4-dev_0.0~r122-2_armhf.deb
+```
+
+###rosbag_migration_rule
+```
+cd ~/ros_catkin_ws/src
+git clone https://github.com/ros/rosbag_migration_rule.git
 cd ..
 rosdep install  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
 ```
@@ -164,7 +208,6 @@ When this step is over, you should add your setup.bash to your .bashrc to improv
 echo "source ~/catkin_ws/install_isolated/setup.bash" >> /home/pi/.bashrc
 source ../.bashrc
 ```
-
 
 # Software (Intel Galileo)
 #### Important: OUTDATED! Follow with caution!
