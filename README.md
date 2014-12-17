@@ -72,7 +72,7 @@ http://www.netbsd.org/~martin/rawrite32/download.html
 
 When you have succesfully written the data to the SD-card, then connect it to your Raspberry Pi and boot it.
 
-## Connectin to Pi
+## Connecting to Pi and first run
 
 It is encouraged to connect to your Raspberry Pi using internet connection (for example via ethernet cable). Connect your Pi to your local network and scan the local area for the IP address with the following command:
 ```
@@ -84,7 +84,16 @@ Then connect to your Pi with ssh connection (Putty on Windows):
 ```
 ssh pi@youripaddress
 ```
+where default password is "raspberry". You should change this later.
 
+When you have connected to your Raspberry Pi, you can adjust your installation with configuration tool which is represented during the welcome message. You can do whatever you want, but the preferred tasks are 1) expanding your SD card installation size to the maximum 2) changing your password 3) overclocking your CPU to somewhere mid-performance (high performance could lead to severe crashes). However, when overclocking, remember that it is always a risk, but encouraged here to increase performance in several taskes.
+
+After that, you can update your system to the latest version, kernel and firmware with following commands:
+```
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo rpi-update
+```
 
 # Software (Intel Galileo)
 #### Important: OUTDATED! Follow with caution!
