@@ -41,6 +41,10 @@ The autonomously navigating multicopter (drone) is built using the following par
 We selected two batteries with different weights. The smaller battery weighted 231g while the bigger one weighted 306g.
 
 ## Software
+#### Important: This guide will help you to install ROS on your Raspberry Pi board. Previous attempts with Intel Galileo are now outdated.
+
+## Software
+#### Important: OUTDATED! Follow with caution!
 Our software stack is built on
 
 [Debian Wheezy](http://sourceforge.net/p/galileodebian/wiki/Home/) (Specificly built for Galileo boards)
