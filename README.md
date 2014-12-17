@@ -128,7 +128,19 @@ rosdep update
 rosdep install  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
 ```
 
-However, this step might provide an error regarded to the sbcl which is not provided to Pi, so we have to remove roslisp.
+IMPORTANT: When runnind rosdep install-call, this automatically provides all the dependencies from debian repositories. However, as seen above, we installed some of the dependencies with pip, not with apt. rosdep cannot detect these even though they are installed, so it can provide an error. Thse packages are most probably titles with ```python-*``` name, To avoid this and manually check which packages must be installed, run instead
+
+```
+rosdep check  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
+```
+
+and then install manually all missing packages (non python-*) with apt
+
+```
+sudo apt-get install [package-name]
+```
+
+When installing dependencies, rosdep might provide an error regarded to the sbcl which is not provided to Pi, so we have to remove roslisp.
 
 ```
 cd src
